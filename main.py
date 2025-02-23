@@ -14,7 +14,7 @@ load_dotenv()
 pg_password = os.environ.get('PG_PASSWORD')
 pg_host = os.environ.get('PG_HOST')
 pg_admin = os.environ.get('PG_ADMIN')
-
+# LOADING TOKENS
 hf_token = os.environ.get('HF_TOKEN')
 model_id = "sentence-transformers/all-MiniLM-L6-v2"
 api_url = f"https://api-inference.huggingface.co/pipeline/feature-extraction/{model_id}"
