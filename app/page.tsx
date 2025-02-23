@@ -34,6 +34,7 @@ const ChatBox: React.FC = () => {
       }
 
       const data = await res.json();
+      console.log(data);
 
       // Add bot's response to the chat history
       setMessages((prevMessages) => [
