@@ -98,7 +98,7 @@ def handle_query():
 
     return jsonify(formatted_response)
 
-@app.route("/api/database", methods = ['GET'])
+@app.route("/api/database", methods=['GET'])
 def query_database():
     query_text = request.args.get('query', '')
 
@@ -111,15 +111,15 @@ def query_database():
     cursor = connection.cursor()
 
     try:
-
-        sql_query = "SELECT * FROM hts WHERE htsnumber ILIKE %s"
+        sql_query = "SELECT htsnumber, description, generalrateofduty FROM hts WHERE htsnumber ILIKE %s"
         
         cursor.execute(sql_query, ('%' + query_text + '%',)) 
         results = cursor.fetchall()  
-        
+
         if results:
+            # Only return the fields we want
             return jsonify({
-                "results": results
+                "results": [{"htsnumber": row[0], "description": row[1], "generalrateofduty": row[2]} for row in results]
             }), 200
         else:
             return jsonify({
