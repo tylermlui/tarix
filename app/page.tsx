@@ -1,3 +1,4 @@
+'use client'
 import { useState, ChangeEvent } from 'react';
 import Link from 'next/link';
 
