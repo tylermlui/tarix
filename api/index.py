@@ -98,3 +98,38 @@ def handle_query():
 
     return jsonify(formatted_response)
 
+@app.route("/api/database", methods = ['GET'])
+def query_database():
+    query_text = request.args.get('query', '')
+
+    if not query_text:
+        return jsonify({"error": "Query text is required"}), 400
+    
+    connection = psycopg2.connect(
+        database="Tarix", user=pg_admin, password=pg_password, host=pg_host, port=20073
+    )
+    cursor = connection.cursor()
+
+    try:
+
+        sql_query = "SELECT * FROM hts WHERE htsnumber ILIKE %s"
+        
+        cursor.execute(sql_query, ('%' + query_text + '%',)) 
+        results = cursor.fetchall()  
+        
+        if results:
+            return jsonify({
+                "results": results
+            }), 200
+        else:
+            return jsonify({
+                "message": "No results found"
+            }), 404
+
+    except Exception as e:
+        return jsonify({
+            "error": str(e)
+        }), 500
+    finally:
+        cursor.close()
+        connection.close()

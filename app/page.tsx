@@ -9,10 +9,12 @@ interface Message {
 
 const ChatBox: React.FC = () => {
   const [query, setQuery] = useState<string>(''); // State for user input
+  const [codeQuery, setCodeQuery] = useState<string>(''); // State for code query input
   const [messages, setMessages] = useState<Message[]>([]); // To hold chat history
   const [loading, setLoading] = useState<boolean>(false); // To handle loading state
+  const [codeLoading, setCodeLoading] = useState<boolean>(false); // To handle code query loading state
 
-  // Function to handle query submission
+  // Function to handle regular query submission
   const handleQuerySubmit = async () => {
     if (!query) return;
 
@@ -61,9 +63,60 @@ const ChatBox: React.FC = () => {
     setQuery('');
   };
 
-  // Handle change in the input field
+  // Function to handle code query submission
+  const handleCodeQuerySubmit = async () => {
+    if (!codeQuery) return;
+
+    // Add user message to chat history for code query
+    setMessages((prevMessages) => [
+      ...prevMessages,
+      { sender: 'user', message: codeQuery },
+    ]);
+
+    // Set loading state for code query
+    setCodeLoading(true);
+
+    try {
+      // Send code query to Flask backend
+      const res = await fetch(`https://tarix.vercel.app/api/database?query=${encodeURIComponent(codeQuery)}`);
+      
+      if (!res.ok) {
+        throw new Error('Failed to fetch response from Flask');
+      }
+
+      const data = await res.json();
+      console.log(data);
+
+      // Add bot's response to the chat history for code query
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        { sender: 'bot', message: data.result || 'No result found for code query' },
+      ]);
+      
+    } catch (error) {
+      console.error(error);
+      // Add error message to chat history for code query
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        { sender: 'bot', message: 'Error fetching data from backend' },
+      ]);
+    } finally {
+      // Hide loading state for code query
+      setCodeLoading(false);
+    }
+
+    // Clear the code query input field
+    setCodeQuery('');
+  };
+
+  // Handle change in the regular input field
   const handleInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setQuery(e.target.value);
+  };
+
+  // Handle change in the code input field
+  const handleCodeInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setCodeQuery(e.target.value);
   };
 
   return (
@@ -89,7 +142,7 @@ const ChatBox: React.FC = () => {
         </div>
 
         <textarea
-          className="w-full p-2 border rounded-lg"
+          className="w-full p-2 border rounded-lg text-black"
           placeholder="Type your query here"
           value={query}
           onChange={handleInputChange}
@@ -103,6 +156,24 @@ const ChatBox: React.FC = () => {
         >
           {loading ? 'Loading...' : 'Send Query'}
         </button>
+        
+        {/* Code Query Section */}
+        <div className="mt-6">
+          <input
+            className="w-full p-2 border rounded-lg text-black"
+            type="text"
+            placeholder="Query code here"
+            value={codeQuery}
+            onChange={handleCodeInputChange}
+          />
+          <button
+            onClick={handleCodeQuerySubmit}
+            className="mt-2 bg-green-500 text-white p-2 rounded-lg w-full"
+            disabled={codeLoading}
+          >
+            {codeLoading ? 'Loading...' : 'Send Code Query'}
+          </button>
+        </div>
       </div>
     </div>
   );
