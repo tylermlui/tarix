@@ -22,7 +22,8 @@ headers = {"Authorization": f"Bearer {hf_token}"}
 
 @app.route('/')
 def main():
-    return {"main": "here"}
+    return jsonify({"message": "Base route is working!"})
+
 @app.route('/query', methods=['GET'])
 def handle_query():
     #GETS QUERY FROM REQUEST ADDRESS
