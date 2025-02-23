@@ -117,7 +117,6 @@ def query_database():
         results = cursor.fetchall()  
 
         if results:
-            # Only return the fields we want
             return jsonify({
                 "results": [{"htsnumber": row[0], "description": row[1], "generalrateofduty": row[2]} for row in results]
             }), 200
