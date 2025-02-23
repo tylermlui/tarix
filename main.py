@@ -63,7 +63,7 @@ def handle_query():
         FROM hts
         WHERE embeddings IS NOT NULL
         ORDER BY embeddings <=> %s
-        LIMIT 5;
+        LIMIT 10;
     """, (query_embedding_str,))
 
     results = cursor.fetchall()
