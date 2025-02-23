@@ -4,9 +4,11 @@ from langchain.prompts import ChatPromptTemplate
 from langchain_openai import ChatOpenAI
 import os
 from dotenv import load_dotenv
+from flask_cors import CORS 
 import requests
-app = Flask(__name__)
 
+app = Flask(__name__)
+CORS(app)  
 
 load_dotenv()
 
