@@ -8,7 +8,7 @@ import { cn } from '@/lib/utils';
 import Image from 'next/image';
 import { WorldMap } from "@/components/ui/world-map";
 import { motion } from 'framer-motion';
-import { BentoGrid, BentoGridItem } from '../components/ui/bento-grid';  // Import BentoGrid components
+import { BentoGrid, BentoGridItem } from '../components/ui/bento-grid';  
 import {
   IconArrowWaveRightUp,
   IconBoxAlignRightFilled,
@@ -19,7 +19,6 @@ import {
   IconTableColumn,
 } from '@tabler/icons-react';
 
-// Interfaces for the messages and code query results
 interface Message {
   sender: 'user' | 'bot';
   message: string;
@@ -32,19 +31,17 @@ interface CodeResult {
 }
 
 const ChatBox: React.FC = () => {
-  const [query, setQuery] = useState<string>(''); // User input state
-  const [messages, setMessages] = useState<Message[]>([]); // Chat history state
-  const [loading, setLoading] = useState<boolean>(false); // Loading state for queries
+  const [query, setQuery] = useState<string>(''); 
+  const [messages, setMessages] = useState<Message[]>([]); // Chat history 
+  const [loading, setLoading] = useState<boolean>(false); 
 
-  // State for code query handling
   const [codeQuery, setCodeQuery] = useState<string>(''); 
   const [codeResults, setCodeResults] = useState<CodeResult[]>([]);
 
-  // Handle submitting the query for the main chat
+  // MAIN CHAT
   const handleQuerySubmit = async () => {
     if (!query) return;
 
-    // Add user message to the chat history
     setMessages(prevMessages => [
       ...prevMessages,
       { sender: 'user', message: query },
@@ -63,8 +60,7 @@ const ChatBox: React.FC = () => {
 
       const data = await res.json();
       console.log(data);
-
-      // Add bot's response
+// RESPONSE
       setMessages(prevMessages => [
         ...prevMessages,
         {
@@ -122,12 +118,10 @@ const ChatBox: React.FC = () => {
     },
   ];
 
-  // Handle input changes for the main chat
   const handleInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setQuery(e.target.value);
   };
 
-  // Handle submitting code query
   const handleCodeQuerySubmit = async () => {
     if (!codeQuery) return;
 
@@ -144,7 +138,6 @@ const ChatBox: React.FC = () => {
       console.log(data);
 
       if (data.results) {
-        // Transform results to the expected format
         const transformedResults = data.results.map((row: any[]) => ({
           htsnumber: row[0],
           description: row[2],
@@ -160,7 +153,6 @@ const ChatBox: React.FC = () => {
     }
   };
 
-  // Handle input changes for code query
   const handleCodeInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setCodeQuery(e.target.value);
   };
@@ -179,7 +171,6 @@ const ChatBox: React.FC = () => {
         </p>
       </BackgroundLines>
   
-      {/* BentoGrid Section */}
       <div className="mt-8 w-full max-w-4xl mx-auto">
         <BentoGrid className="max-w-4xl mx-auto">
           {items.map((item, i) => (
@@ -194,7 +185,6 @@ const ChatBox: React.FC = () => {
         </BentoGrid>
       </div>
   
-      {/* Add space between Bento Grid and Query Section */}
       <div className="mt-12 w-full max-w-2xl p-4 bg-black rounded-lg shadow-lg">
         <h3 className="text-5xl font-bold text-center mb-4">Ask about Tariffs</h3>
         <div className="flex flex-col space-y-4 max-h-80 overflow-y-auto mb-4">
@@ -223,7 +213,6 @@ const ChatBox: React.FC = () => {
         </button>
       </div>
   
-      {/* Search HTS Code Section */}
       <div className="mt-12 w-full max-w-lg">
         <h3 className="text-2xl font-bold text-center mb-4">Search Codes</h3>
         <input
@@ -285,31 +274,31 @@ const ChatBox: React.FC = () => {
               start: {
                 lat: 64.2008,
                 lng: -149.4937,
-              }, // Alaska (Fairbanks)
+              }, 
               end: {
                 lat: 34.0522,
                 lng: -118.2437,
-              }, // Los Angeles
+              }, 
             },
             {
-              start: { lat: 64.2008, lng: -149.4937 }, // Alaska (Fairbanks)
-              end: { lat: -15.7975, lng: -47.8919 }, // Brazil (Brasília)
+              start: { lat: 64.2008, lng: -149.4937 }, 
+              end: { lat: -15.7975, lng: -47.8919 }, 
             },
             {
-              start: { lat: -15.7975, lng: -47.8919 }, // Brazil (Brasília)
-              end: { lat: 38.7223, lng: -9.1393 }, // Lisbon
+              start: { lat: -15.7975, lng: -47.8919 }, 
+              end: { lat: 38.7223, lng: -9.1393 }, 
             },
             {
-              start: { lat: 51.5074, lng: -0.1278 }, // London
-              end: { lat: 28.6139, lng: 77.209 }, // New Delhi
+              start: { lat: 51.5074, lng: -0.1278 }, 
+              end: { lat: 28.6139, lng: 77.209 }, 
             },
             {
-              start: { lat: 28.6139, lng: 77.209 }, // New Delhi
-              end: { lat: 43.1332, lng: 131.9113 }, // Vladivostok
+              start: { lat: 28.6139, lng: 77.209 }, 
+              end: { lat: 43.1332, lng: 131.9113 }, 
             },
             {
-              start: { lat: 28.6139, lng: 77.209 }, // New Delhi
-              end: { lat: -1.2921, lng: 36.8219 }, // Nairobi
+              start: { lat: 28.6139, lng: 77.209 }, 
+              end: { lat: -1.2921, lng: 36.8219 }, 
             },
           ]}
         />
