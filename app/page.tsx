@@ -39,7 +39,7 @@ const ChatBox: React.FC = () => {
       // Add bot's response to the chat history
       setMessages((prevMessages) => [
         ...prevMessages,
-        { sender: 'bot', message: data.response || 'No result found' },
+        { sender: 'bot',message: `${data.response || ''} ${data.sources || 'No result found'}` },
       ]);
     } catch (error) {
       console.error(error);
