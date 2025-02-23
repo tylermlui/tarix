@@ -39,8 +39,12 @@ const ChatBox: React.FC = () => {
       // Add bot's response to the chat history
       setMessages((prevMessages) => [
         ...prevMessages,
-        { sender: 'bot',message: `${data.response || ''} ${data.sources || 'No result found'}` },
+        {
+          sender: 'bot',
+          message: `${data.response || ''} ${data.sources ? `<a href="${data.sources}" target="_blank" rel="noopener noreferrer" class="text-blue-500">${data.sources}</a>` : 'No result found'}`,
+        },
       ]);
+      
     } catch (error) {
       console.error(error);
       // Add error message to chat history
@@ -71,13 +75,15 @@ const ChatBox: React.FC = () => {
         </Link>
       </p>
 
-      <div className="w-full max-w-lg p-4 border border-gray-300 rounded-lg shadow-lg">
-        <div className="flex flex-col space-y-4 max-h-60 overflow-y-auto mb-4">
+      <div className="w-full max-w-2xl p-4 border border-gray-300 rounded-lg shadow-lg">
+        <div className="flex flex-col space-y-4 max-h-80 overflow-y-auto mb-4">
           {messages.map((msg, idx) => (
             <div key={idx} className={`chat-message ${msg.sender === 'user' ? 'text-right' : 'text-left'}`}>
-              <div className={`inline-block p-2 rounded-lg ${msg.sender === 'user' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}>
-                {msg.message}
-              </div>
+              <div
+                key={idx}
+                className={`inline-block p-2 rounded-lg ${msg.sender === 'user' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-black'}`}
+                dangerouslySetInnerHTML={{ __html: msg.message }}
+              />
             </div>
           ))}
         </div>
