@@ -20,7 +20,9 @@ model_id = "sentence-transformers/all-MiniLM-L6-v2"
 api_url = f"https://api-inference.huggingface.co/pipeline/feature-extraction/{model_id}"
 headers = {"Authorization": f"Bearer {hf_token}"}
 
-
+@app.route('/')
+def main():
+    return {"main": "here"}
 @app.route('/query', methods=['GET'])
 def handle_query():
     #GETS QUERY FROM REQUEST ADDRESS
