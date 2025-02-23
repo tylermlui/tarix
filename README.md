@@ -1,4 +1,4 @@
-Tarix
+# Tarix
 
 Tarix is a web application designed to help consumers, businesses, and policymakers make more informed decisions about the tariffs applied to the exports of various foreign countries. By providing detailed information on the tariffs associated with different products, Tarix enables users to better understand how tariffs impact prices and their purchasing decisions.
 Inspiration
@@ -9,7 +9,7 @@ What it does
 Tarix helps users better understand the products they are purchasing and the tariffs placed on them. With a user-friendly interface, Tarix provides instant access to tariff rates, HTS code information, and product descriptions, empowering users to make smarter decisions when buying or selling goods internationally.
 How we built it
 
-Tarix was built using:
+### Tarix was built using:
 
     Frontend: Next.js – A React framework for building server-side rendered (SSR) web applications.
     Backend: Flask – A micro web framework for Python that handles the logic for interacting with the database and API endpoints.
@@ -19,13 +19,13 @@ Tarix was built using:
 
 The application utilizes Retrieval-Augmented Generation (RAG) to provide insights based on user queries, leveraging a combination of pre-trained transformer models and a local database to offer responses that are tailored to user requests.
 
-Features
+### Features
 
     Product Tariff Search: Users can search for products by HTS codes and view detailed tariff information, including duty rates and product descriptions.
     Retrieval-Augmented Generation (RAG): The app provides enhanced answers by combining both data retrieval from the database and AI-generated insights, giving users a complete understanding of tariffs related to their queries.
     Global Reach: Tarix supports a wide range of tariffs across different countries and regions, enabling international trade analysis.
 
-Future Improvements
+### Future Improvements
 
     Enhanced Search Features: More refined search options, including filters based on country, product type, or tariff rate.
     Visualizations: Adding charts or graphs to help users better understand tariff trends and their economic impact.
