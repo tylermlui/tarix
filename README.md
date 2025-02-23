@@ -18,3 +18,15 @@ Tarix was built using:
     CUDA: Used for local GPU-accelerated embeddings to improve performance.
 
 The application utilizes Retrieval-Augmented Generation (RAG) to provide insights based on user queries, leveraging a combination of pre-trained transformer models and a local database to offer responses that are tailored to user requests.
+
+Features
+
+    Product Tariff Search: Users can search for products by HTS codes and view detailed tariff information, including duty rates and product descriptions.
+    Retrieval-Augmented Generation (RAG): The app provides enhanced answers by combining both data retrieval from the database and AI-generated insights, giving users a complete understanding of tariffs related to their queries.
+    Global Reach: Tarix supports a wide range of tariffs across different countries and regions, enabling international trade analysis.
+
+Future Improvements
+
+    Enhanced Search Features: More refined search options, including filters based on country, product type, or tariff rate.
+    Visualizations: Adding charts or graphs to help users better understand tariff trends and their economic impact.
+    Broader Data Sources: Integrating more data sources for additional tariff-related insights.
