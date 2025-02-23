@@ -44,12 +44,10 @@ def process_text_array(text_array, batch_size=64):
 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 model = model.to(device)
-print(len(concatenated_records))
 
 # GETS EMBEDDINGS FOR ALL OF THE RECORDS CAN SPLIT LIST TO PROCESS LESS IF NEEDED
 embeddings = process_text_array(concatenated_records)
 
-print(embeddings)
 
 insert_query = """
     INSERT INTO hts (htsnumber, indent, description, unitquantity, 
@@ -63,7 +61,6 @@ for record, embedding in zip(concatenated_records, embeddings):
     parsed_records += 1
     record_columns = record.split('|')    
 
-    print(f"Record Columns: {record_columns}, parsed {parsed_records}/{len(concatenated_records)}")
 
     htsnumber = record_columns[0].split(": ")[1]
     indent = record_columns[1].split(": ")[1]
