@@ -21,7 +21,7 @@ api_url = f"https://api-inference.huggingface.co/pipeline/feature-extraction/{mo
 headers = {"Authorization": f"Bearer {hf_token}"}
 
 
-@app.route("/api/python")
+@app.route('/query', methods=['GET'])
 def handle_query():
     #GETS QUERY FROM REQUEST ADDRESS
     query_text = request.args.get('query', '')
